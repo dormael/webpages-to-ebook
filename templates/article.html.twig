@@ -1,2 +1,2 @@
 <{{ tags.title }}><a href="{{ url }}">{{ title }}</a></{{ tags.title }}>
-{{ content }}
+{{ content | replace({'<code>': '<code class="bash">'}) | raw }}

@@ -188,6 +188,7 @@ function createEpub() {
 
   // Create EPUB.
   console.log('Creating EPUB...')
+  console.log(book.commands.pandoc, [ '--from', 'html', '-o', './output/epub/' + book.shortname + '.epub', '--highlight-style', 'tango', '--epub-metadata', './output/meta/' + book.shortname + '.xml' ].concat(filepaths))
   child_process.spawnSync( book.commands.pandoc, [ '--from', 'html', '-o', './output/epub/' + book.shortname + '.epub', '--epub-metadata', './output/meta/' + book.shortname + '.xml' ].concat(filepaths) );
   // TODO:
   // Output exit status.
