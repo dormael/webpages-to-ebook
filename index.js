@@ -127,7 +127,9 @@ function parseFile(url, hash) {
       console.log(hash + "\t" + 'read error'); 
     }
 
-    readability(html, function(err, article, meta) {
+    var options = {keepClasses: true}
+
+    readability(html, options, function(err, article, meta) {
       if (err) {
         console.log(hash + ': Error on parsing. Skipping file.');
         fs.writeFileSync('./output/html.processed/' + hash + '.html', '');
@@ -186,9 +188,11 @@ function createEpub() {
     filepaths.push('./output/html.processed/' + hash + '.html');
   }
 
+  var highlightStyle = 'zenburn'
+
   // Create EPUB.
   console.log('Creating EPUB...')
-  console.log(book.commands.pandoc, [ '--from', 'html', '-o', './output/epub/' + book.shortname + '.epub', '--highlight-style', 'tango', '--epub-metadata', './output/meta/' + book.shortname + '.xml' ].concat(filepaths))
+  console.log(book.commands.pandoc, [ '--from', 'html', '-o', './output/epub/' + book.shortname + '.epub', '--highlight-style', highlightStyle, '--epub-metadata', './output/meta/' + book.shortname + '.xml' ].concat(filepaths))
   child_process.spawnSync( book.commands.pandoc, [ '--from', 'html', '-o', './output/epub/' + book.shortname + '.epub', '--epub-metadata', './output/meta/' + book.shortname + '.xml' ].concat(filepaths) );
   // TODO:
   // Output exit status.
